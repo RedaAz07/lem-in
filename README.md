@@ -1,64 +1,64 @@
-# 🐜 Lem-in: Simulation d'une Fourmilière
+# 🐜 Lem-in: Ant Colony Simulation
 
-Lem-in est un projet de simulation où un groupe de fourmis doit se déplacer d'une salle de départ vers une salle d'arrivée en empruntant un réseau de tunnels. L'objectif est d'optimiser leurs déplacements pour minimiser le nombre de tours nécessaires.
-
----
-
-## 📌 Fonctionnalités
-✅ Lecture et analyse des données d'entrée (nombre de fourmis, salles, liens).  
-✅ Recherche des chemins possibles entre la salle de départ et la salle d'arrivée.  
-✅ Répartition intelligente des fourmis pour optimiser leur parcours.  
-✅ Affichage du mouvement des fourmis à chaque tour.  
+Lem-in is a simulation project where a group of ants must travel from a starting room to an ending room through a network of tunnels. The goal is to optimize their movements to minimize the number of turns required.
 
 ---
 
-## 📁 Structure du projet
+## 📌 Features
+✅ Reading and analyzing input data (number of ants, rooms, links).  
+✅ Finding possible paths between the start and end rooms.  
+✅ Intelligent distribution of ants to optimize their journey.  
+✅ Displaying the movement of ants at each turn.  
+
+---
+
+## 📁 Project Structure
 ```
 lem-in/
 │── cmd/
-│   └── main.go         # Point d'entrée du programme
+│   └── main.go         # Program entry point
 │── bfs/
-│   └── bfs.go          # Algorithme de recherche de chemins (BFS)
+│   └── bfs.go          # Pathfinding algorithm (BFS)
 │── parsing/
-│   └── parsing.go      # Lecture et analyse du fichier d'entrée
+│   └── parsing.go      # Reading and analyzing input file
 │── printage/
-│   └── printage.go     # Affichage du déplacement des fourmis
+│   └── printage.go     # Displaying ant movements
 │── utils/
-│   └── utils.go        # Fonctions utilitaires et structures de données
+│   └── utils.go        # Utility functions and data structures
 │── README.md           # Documentation
 ```
 
 ---
 
-## 📥 Installation et exécution
-### 1️⃣ Prérequis
-- **Go** installé sur votre machine (`go version` pour vérifier).
+## 📥 Installation and Execution
+### 1️⃣ Prerequisites
+- **Go** installed on your machine (check with `go version`).
 
-### 2️⃣ Cloner le projet
+### 2️⃣ Clone the Project
 ```sh
-git clone https://github.com/votre-repo/lem-in.git
+git clone https://github.com/RedaAz07/lem-in.git
 cd lem-in
 ```
 
-### 3️⃣ Compiler et exécuter
+### 3️⃣ Compile and Run
 ```sh
 go run . test0.txt
 ```
-Remplace `test0.txt` par le fichier contenant la description de la fourmilière.
+Replace `test0.txt` with the file containing the ant farm description.
 
 ---
 
-## 📜 Format du fichier d'entrée
-Le fichier d'entrée doit respecter le format suivant :
+## 📜 Input File Format
+The input file must follow this format:
 ```
-3               # Nombre de fourmis
-##start         # Début de la définition des salles
-A 1 2          # Salle de départ
+3               # Number of ants
+##start         # Start of room definitions
+A 1 2          # Starting room
 B 3 4
 C 5 6
-##end           # Début de la salle d'arrivée
-D 7 8          # Salle de fin
-A-B            # Liens entre les salles
+##end           # Start of the ending room definition
+D 7 8          # End room
+A-B            # Links between rooms
 A-C
 B-D
 C-D
@@ -66,18 +66,18 @@ C-D
 
 ---
 
-## 🔎 Explication du fonctionnement
-1. **Lecture du fichier d'entrée** (`parsing.go`) :
-   - Extraction du nombre de fourmis, des salles et des tunnels.
-2. **Recherche des chemins optimaux** (`graph.go`) :
-   - Algorithme BFS pour trouver les meilleurs chemins.
-3. **Simulation du déplacement des fourmis** (`printage.go`) :
-   - Répartition des fourmis sur les chemins et affichage des déplacements.
+## 🔎 How It Works
+1. **Reading the input file** (`parsing.go`):
+   - Extracting the number of ants, rooms, and tunnels.
+2. **Finding optimal paths** (`graph.go`):
+   - BFS algorithm to find the best paths.
+3. **Simulating ant movements** (`printage.go`):
+   - Distributing ants across paths and displaying their movements.
 
 ---
 
-## 📖 Exemple d'exécution
-**Entrée (test0.txt) :**
+## 📖 Execution Example
+**Input (test0.txt):**
 ```
 3
 ##start
@@ -92,7 +92,7 @@ B-D
 C-D
 ```
 
-**Sortie attendue :**
+**Expected Output:**
 ```
 L1-B L2-C
 L1-D L2-D L3-B
@@ -102,21 +102,22 @@ L3-D
 ---
 
 ## 🤝 Contribution
-Les contributions sont les bienvenues ! Pour proposer des améliorations :
-1. **Fork** le projet.
-2. Crée une branche (`git checkout -b feature-nouvelle-fonctionnalité`).
-3. Fais tes modifications et commit (`git commit -m "Ajout d'une nouvelle fonctionnalité"`).
-4. Pousse tes changements (`git push origin feature-nouvelle-fonctionnalité`).
-5. Crée une Pull Request.
+Contributions are welcome! To propose improvements:
+1. **Fork** the project.
+2. Create a branch (`git checkout -b feature-new-feature`).
+3. Make your changes and commit (`git commit -m "Added a new feature"`).
+4. Push your changes (`git push origin feature-new-feature`).
+5. Create a Pull Request.
 
 ---
 
-## 🛠 Technologies utilisées
-- **Langage :** Go
-- **Algorithme principal :** BFS (Breadth-First Search)
-- **Gestion des fichiers :** `os` et `strings`
+## 🛠 Technologies Used
+- **Language:** Go
+- **Main Algorithm:** BFS (Breadth-First Search)
+- **File Management:** `os` and `strings`
 
 ---
 
-## 📄 Licence
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails.
+## 📄 License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
