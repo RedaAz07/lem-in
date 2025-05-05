@@ -112,7 +112,6 @@ func FindDisjointPaths2(paths [][]string, colony *utils.AntFarm) [][]string {
 			continue
 		}
 
-		valid := true
 
 		for j := 1; j < len(paths[i])-1; j++ {
 			room := paths[i][j]
@@ -121,12 +120,10 @@ func FindDisjointPaths2(paths [][]string, colony *utils.AntFarm) [][]string {
 
 					smollpath[k] = false
 					n[room] = i
+					
 					smollpath[i] = true
 				} else {
-					
-
 					smollpath[i] = false
-					valid = false
 					break
 				}
 			} else {
@@ -136,9 +133,7 @@ func FindDisjointPaths2(paths [][]string, colony *utils.AntFarm) [][]string {
 			}
 		}
 
-		if !valid {
-			smollpath[i] = false
-		}
+		
 	}
 
 	var result [][]string
