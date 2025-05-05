@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 
 	graph "lem-in/bfs"
@@ -22,10 +23,14 @@ func main() {
 		fmt.Println("No valid paths found.")
 		os.Exit(1)
 	}
-fmt.Println(paths,"\n")
-	
+
 	fmt.Println(string(parsing.File) + "\n")
-	utils.Filter = graph.FindDisjointPaths(paths, colony)
+
+	if math.Ceil(float64(len(paths))/float64(utils.Ants)) < float64(utils.Ants) {
+		utils.Filter = graph.FindDisjointPaths(paths, colony)
+	} else {
+		utils.Filter = graph.FindDisjointPaths2(paths, colony)
+	}
 
 	printage.Sendants(colony)
 }

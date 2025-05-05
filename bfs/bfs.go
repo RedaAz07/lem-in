@@ -41,7 +41,6 @@ func FindPaths(colony *utils.AntFarm) [][]string {
 						newPath := append([]string{}, path...)
 						newPath = append(newPath, next)
 						queue = append(queue, newPath)
-						visited[next] = true
 					}
 				}
 			}
@@ -87,8 +86,9 @@ func FindDisjointPaths(paths [][]string, colony *utils.AntFarm) [][]string {
 					usedNodes[node] = true
 				}
 
+				
 				backtrack(i + 1)
-
+				
 				currentPaths = currentPaths[:len(currentPaths)-1]
 				for _, node := range path[1 : len(path)-1] {
 					delete(usedNodes, node)
@@ -99,4 +99,53 @@ func FindDisjointPaths(paths [][]string, colony *utils.AntFarm) [][]string {
 
 	backtrack(0)
 	return utils.Filter
+}
+
+func FindDisjointPaths2(paths [][]string, colony *utils.AntFarm) [][]string {
+	n := make(map[string]int)
+
+	smollpath := make(map[int]bool)
+
+	for i := 0; i < len(paths); i++ {
+		if len(paths[i]) == 2 {
+			utils.Filter = append(utils.Filter, paths[i])
+			continue
+		}
+
+		valid := true
+
+		for j := 1; j < len(paths[i])-1; j++ {
+			room := paths[i][j]
+			if k, exists := n[room]; exists {
+				if len(paths[k]) > len(paths[i]) {
+
+					smollpath[k] = false
+					n[room] = i
+					smollpath[i] = true
+				} else {
+					
+
+					smollpath[i] = false
+					valid = false
+					break
+				}
+			} else {
+				n[room] = i
+
+				smollpath[i] = true
+			}
+		}
+
+		if !valid {
+			smollpath[i] = false
+		}
+	}
+
+	var result [][]string
+	for idx, ok := range smollpath {
+		if ok {
+			result = append(result, paths[idx])
+		}
+	}
+	return result
 }
