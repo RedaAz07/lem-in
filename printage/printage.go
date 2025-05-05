@@ -40,32 +40,33 @@ func Sendants(colony *utils.AntFarm) {
 	}
 	control_trafic(antGroups, colony)
 }
+
 func control_trafic(antGroups [][]string, colony *utils.AntFarm) {
-    trafic := make(map[string]int)
-    romm3Amra := make(map[string]bool)
-    finished := 0
-    for finished != utils.Ants {
-        for i := 0; i < len(utils.Filter); i++ {
-         romm3Amra[colony.End.Name] = false
-            for currentStep := 0; currentStep < len(antGroups[i]); currentStep++ {
-                ant := antGroups[i][currentStep]
-                nextroom := utils.Filter[i][trafic[ant]+1]
-                if !romm3Amra[nextroom] {
-                    fmt.Printf("%v-%v ", ant, nextroom)
-                    romm3Amra[nextroom] = true
-                    romm3Amra[utils.Filter[i][trafic[ant]]] = false
-                    if nextroom == colony.End.Name {
-                        finished++
-                        delete(trafic, ant)
-                        antGroups[i] = append(antGroups[i][:currentStep], antGroups[i][currentStep+1:]...)
-                        currentStep--
-                     romm3Amra[colony.End.Name] = true
-                        continue
-                    }
-                    trafic[ant]++
-                }
-            }
-        }
-        fmt.Println()
-    }
+	trafic := make(map[string]int)
+	romm3Amra := make(map[string]bool)
+	finished := 0
+	for finished != utils.Ants {
+		for i := 0; i < len(utils.Filter); i++ {
+			romm3Amra[colony.End.Name] = false
+			for currentStep := 0; currentStep < len(antGroups[i]); currentStep++ {
+				ant := antGroups[i][currentStep]
+				nextroom := utils.Filter[i][trafic[ant]+1]
+				if !romm3Amra[nextroom] {
+					fmt.Printf("%v-%v ", ant, nextroom)
+					romm3Amra[nextroom] = true
+					romm3Amra[utils.Filter[i][trafic[ant]]] = false
+					if nextroom == colony.End.Name {
+						finished++
+						delete(trafic, ant)
+						antGroups[i] = append(antGroups[i][:currentStep], antGroups[i][currentStep+1:]...)
+						currentStep--
+						romm3Amra[colony.End.Name] = true
+						continue
+					}
+					trafic[ant]++
+				}
+			}
+		}
+		fmt.Println()
+	}
 }

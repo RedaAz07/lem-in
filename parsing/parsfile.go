@@ -8,7 +8,9 @@ import (
 
 	"lem-in/utils"
 )
+
 var File []byte
+
 func Parsing() *utils.AntFarm {
 	// Create a new AntFarm struct
 	colony := &utils.AntFarm{
@@ -28,13 +30,12 @@ func Parsing() *utils.AntFarm {
 	if err != nil {
 		fmt.Println("Error: ", err)
 		return nil
-		
+
 	}
-	File=file
+	File = file
 	// split the file into lines
 	line := strings.Split(string(file), "\n")
 
-	
 	nbrAnts, err := strconv.Atoi(strings.TrimSpace(line[0]))
 	if err != nil {
 		fmt.Println("Error: Invalid  number of Ants ", err)
@@ -52,12 +53,22 @@ func Parsing() *utils.AntFarm {
 
 	StartDup := false
 	EndDup := false
-
+	skip1 := false
+	skip2 := false
 	for i := 1; i < len(line); i++ {
+		if skip1 && line[i] == "##start" {
+			fmt.Println("Error: ##start is duplicated")
+			return nil
+		}
+		if skip2 && line[i] == "##end" {
+			fmt.Println("Error: ##start is duplicated")
+			return nil
+		}
 
-		if line[i] == "" {
+		if line[i] == "" || (line[i][0] == '#' && (line[i] != "##start" && line[i] != "##end")) {
 			continue
 		}
+
 		// create a new room
 		room := &utils.Room{
 			Name: "",
@@ -89,7 +100,18 @@ func Parsing() *utils.AntFarm {
 			}
 			// assign the room name, x and y coordinates
 			room.Name = rooms[0]
+
+			_, err1 := strconv.Atoi(rooms[1])
+			if err1 != nil {
+				fmt.Println("ERROR: ", err1, "coordoni")
+				return nil
+			}
 			room.X = rooms[1]
+			_, err2 := strconv.Atoi(rooms[1])
+			if err2 != nil {
+				fmt.Println("ERROR: ", err2, "coordoni")
+				return nil
+			}
 			room.Y = rooms[2]
 
 			colony.Rooms[room.Name] = room
@@ -97,7 +119,7 @@ func Parsing() *utils.AntFarm {
 		}
 
 		// check if the line starts with '##start'
-		if strings.TrimSpace(line[i-1]) == "##start" {
+		if skip1 {
 			// check if the start is duplicated
 			if StartDup {
 				fmt.Println("ERROR: invalid data format (start or end  is depleted)")
@@ -111,10 +133,11 @@ func Parsing() *utils.AntFarm {
 				colony.Start.X = rooms[1]
 				colony.Start.Y = rooms[2]
 			}
+			skip1 = false
 			continue
 		}
 		// check if the line starts with '##end'
-		if strings.TrimSpace(line[i-1]) == "##end" {
+		if skip2 {
 			// check if the end is duplicated
 			if EndDup {
 				fmt.Println("ERROR: invalid data format (start or end  is depleted)")
@@ -128,6 +151,7 @@ func Parsing() *utils.AntFarm {
 				colony.End.X = rooms[1]
 				colony.End.Y = rooms[2]
 			}
+			skip2 = false
 			continue
 		}
 
@@ -140,6 +164,12 @@ func Parsing() *utils.AntFarm {
 
 			continue
 
+		}
+		if line[i] == "##start" {
+			skip1 = true
+		}
+		if line[i] == "##end" {
+			skip2 = true
 		}
 
 	}

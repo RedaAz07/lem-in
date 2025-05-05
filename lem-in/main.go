@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 
 	graph "lem-in/bfs"
@@ -26,7 +25,7 @@ func main() {
 
 	fmt.Println(string(parsing.File) + "\n")
 
-	if math.Ceil(float64(len(paths))/float64(utils.Ants)) < float64(utils.Ants) {
+	if (len(paths))/(utils.Ants) <= (utils.Ants) {
 		utils.Filter = graph.FindDisjointPaths(paths, colony)
 	} else {
 		utils.Filter = graph.FindDisjointPaths2(paths, colony)
