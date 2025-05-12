@@ -25,11 +25,8 @@ func main() {
 
 	fmt.Println(string(parsing.File) + "\n")
 
-	if (len(paths))/(utils.Ants) <= (utils.Ants) {
 		utils.Filter = graph.FindDisjointPaths(paths, colony)
-	} else {
-		utils.Filter = graph.FindDisjointPaths2(paths, colony)
-	}
+	
 
 	printage.Sendants(colony)
 }
